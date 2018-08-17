@@ -1,0 +1,56 @@
+version: "3"
+
+networks: 
+  elk_net:
+    driver: bridge
+
+volumes:
+  es_volume:
+    driver: local
+
+
+services:
+
+  logstash:
+    build:
+      context: ./logstash
+    volumes:
+      - ./logs/input:/logs/input
+      - ./logs/output:/logs/output
+    ports:
+        - "5000:5000"
+    networks: 
+        - elk_net
+    depends_on:
+      - elasticsearch
+
+  
+  # 录入消息只用在 ./logs/input/ 目录下输入数据就能进程测试
+  # 启动后可以在本地 http://localhost:9200/_search?pretty  查看收到的消息
+  elasticsearch:
+    build:
+      context: ./elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+    volumes:
+      - es_volume:/usr/share/elasticsearch/data
+    networks:
+      - elk_net
+  
+  kibana:
+    build:
+      context: kibana/
+    volumes:
+      - ./kibana/config:/etc/kibana:ro
+    ports:
+      - "5601:5601"
+    networks:
+      - elk_net
+    depends_on:
+      - elasticsearch
+    
+
+    
