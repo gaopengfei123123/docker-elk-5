@@ -30,6 +30,17 @@ services:
   elasticsearch:
     build:
       context: ./elasticsearch
+    # deploy:
+    #   # 默认开启三个容器, 每个容器上限 1核1G, 下限 0.25核20M
+    #   mode: replicated
+    #   replicas: 3
+    #   resources:
+    #     limits:
+    #       cpus: '1'
+    #       memory: 1G
+    #     reservations:
+    #       cpus: '0.25'
+    #       memory: 20M
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -43,8 +54,6 @@ services:
   kibana:
     build:
       context: kibana/
-    # volumes:
-    #   - ./kibana/config:/etc/kibana:ro
     ports:
       - "5601:5601"
     networks:

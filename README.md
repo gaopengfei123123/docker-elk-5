@@ -76,3 +76,9 @@ Creating docker-elk_kibana_1        ... done
 docker-compose logs -f
 ```
 查看各容器日志输出
+
+
+### TODO
+
+* 引入 kafka 做缓冲 
+* 搭建 es 集群

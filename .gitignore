@@ -1,0 +1,4 @@
+logs/input/*
+logs/output/*
+logstash/conf.d/*
+!logstash/conf.d/test.conf
