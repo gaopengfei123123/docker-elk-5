@@ -14,6 +14,7 @@ services:
   logstash:
     build:
       context: ./logstash
+    restart: always
     volumes:
       - ./logs/input:/logs/input
       - ./logs/output:/logs/output
@@ -30,6 +31,7 @@ services:
   elasticsearch:
     build:
       context: ./elasticsearch
+    restart: always
     # deploy:
     #   # 默认开启三个容器, 每个容器上限 1核1G, 下限 0.25核20M
     #   mode: replicated

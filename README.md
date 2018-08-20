@@ -69,6 +69,12 @@ Creating docker-elk_kibana_1        ... done
 **注意**, 第一次启动时有可能会出现提示 `elasticsearch not found` 这类的问题, 可以先等个一两分钟刷新一下就好了, 如果还是不行就谷歌或者提 issue 解决一下
 
 
+同目录下输入
+```bash
+docker-compose stop
+```
+则停止所有服务
+
 ### 测试一下
 在 `logs/input/` 目录下新增个 test.log 文件, 然后输入点东西验证一下, 或者命令行执行`echo "Test Logstash TCP Input Plugin" | nc localhost 5000` 通过 tcp 发送日志
 
